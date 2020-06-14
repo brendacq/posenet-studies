@@ -12,6 +12,10 @@ function setup(){
     poseNet = ml5.poseNet(video, () => {
         console.log('model ready')
     });
+
+    poseNet.on('pose', (poses) => {
+        console.log(poses);
+    });
 }
 
 
