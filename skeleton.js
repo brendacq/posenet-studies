@@ -31,7 +31,7 @@ function setup() {
 }
 
 function draw() {
-    // To display the video being captured, let's use the image function. The video will start being "drawned" from (0,0) coordinates.
+    // To display the video that's being captured, let's use the image() function. The video will start being "drawned" from (0,0) coordinates.
     image(video, 0, 0);
 
     // If the model detects a pose, it will draw an ellipse on the keypoints. To check for all the keypoints, we'll run the whole
@@ -46,8 +46,8 @@ function draw() {
             ellipse(x, y, 15);
         }
 
-        // The line is 2 dimensional, so we need to check the coordinates for both dimensions. Then draw a line from the first
-        // (x,y) coordinates to the seconds (x, y) coordinates
+        // The line is 2 dimensional, so we need to check the coordinates for both dimensions, then draw a line from the first
+        // (x,y) coordinates to the second (x, y) coordinates.
         for (var i = 0; i < skeleton.length; i++) {
             let a = skeleton[i][0];
             let b = skeleton[i][1];
