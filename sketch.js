@@ -2,14 +2,19 @@
 // When you use this function, your browser will ask for permission to connect to the webcam
 
 let video;
+let poseNet;
 
 function setup(){
     createCanvas(640, 480);
     video = createCapture(VIDEO);
     video.hide();
+
+    poseNet = ml5.poseNet(video, () => {
+        console.log('model ready')
+    });
 }
 
+
 function draw(){
-    background(220);
     image(video, 0, 0);
 }
