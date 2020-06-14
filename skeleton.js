@@ -45,5 +45,16 @@ function draw() {
             fill(140, 30, 200);
             ellipse(x, y, 15);
         }
+
+        // The line is 2 dimensional, so we need to check the coordinates for both dimensions. Then draw a line from the first
+        // (x,y) coordinates to the seconds (x, y) coordinates
+        for (var i = 0; i < skeleton.length; i++) {
+            let a = skeleton[i][0];
+            let b = skeleton[i][1];
+
+            strokeWeight(2);
+            stroke(255);
+            line(a.position.x, a.position.y, b.position.x, b.position.y);
+        }
     }
 }
