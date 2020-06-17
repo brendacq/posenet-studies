@@ -7,8 +7,10 @@ let skeleton;           // for drawing the line between the points
 function setup() {
     createCanvas(640, 480);
 
+    // To access the audio or video feed from a webcam, the createCapture() function creates a new HTML5 file <video> element.
+    // The capture will be displayed by default and separated from the canvas.
     // The video will be captured after the user grants the permission to the webcam.
-    // Since the video will be displayed using the image() function and there's a Canvas element, we use the method hide() so
+    // Since the video will be displayed using the image() function and there's a Canvas element, we use .hide() so
     // the image won't be in duplicity.
     video = createCapture(VIDEO);
     video.hide();
@@ -18,11 +20,18 @@ function setup() {
         console.log('model loaded');
     });
 
-    // Now we gotta check if there's any pose being perceived by the model using the method on(). 
+    // Now we gotta check if there's any pose being perceived by the model using the event .on(). 
     // The callback function is used to store the pose attributes, such as position, part of the body, and also the skeleton property
     // from the poses array so that we can draw lines between the keypoints that are connected.
     posenet.on('pose', (poses) => {
         // console.log(poses);
+
+        /*
+            [{ pose{} }, { skeleton[12] }]
+            pose: { score, keypoints[{ index: {score, part, position: {x, y} } } ], parts of the body: {x, y, confidence} }
+            skeleton[12] = { index[2] = { 0: {score, part, position: {x, y}}, 1: {score, part, position: {x, y}}  }}
+        */
+
         if (poses.length > 0) {
             pose = poses[0].pose;
             skeleton = poses[0].skeleton;
@@ -34,7 +43,7 @@ function draw() {
     // To display the video that's being captured, let's use the image() function. The video will start being "drawned" from (0,0) coordinates.
     image(video, 0, 0);
 
-    // If the model detects a pose, it will draw an ellipse on the keypoints. To check for all the keypoints, we'll run the whole
+    // If the model detects a pose, we'll draw an ellipse on the keypoints. To check all the keypoints, we'll run the whole
     // keypoints array looking for the x and y properties from the position object.
     if (pose) {
         for (var i = 0; i < pose.keypoints.length; i++) {
