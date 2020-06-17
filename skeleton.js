@@ -55,8 +55,11 @@ function draw() {
             ellipse(x, y, 15);
         }
 
-        // The line is 2 dimensional, so we need to check the coordinates for both dimensions, then draw a line from the first
-        // (x,y) coordinates to the second (x, y) coordinates.
+        // In the skeleton array, each element is an array containing 2 objects. These objects have a 'score' and a 'part' property,
+        // and a 'position' object with x, y properties. 
+        // The model probably uses the coordinates of each keypoint to determine which parts are connected.
+        // To draw the line from the two parts that are connected, we need the x and y position of the 2 elements. Also we need to do
+        // that for each element of the skeleton array.
         for (var i = 0; i < skeleton.length; i++) {
             let a = skeleton[i][0];
             let b = skeleton[i][1];
