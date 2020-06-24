@@ -6,6 +6,7 @@ let skeleton;
 
 let brain;          // neural network;
 
+let state = 'waiting...';
 let targetLabel;
 
 // To give us time to take place before the data start being collected, we use the JS function setTimeout() that will execute a
@@ -14,7 +15,18 @@ function keyPressed() {
     targetLabel = key;
     console.log(targetLabel);
 
-    setTimeout(() => { console.log('collecting') }, 1000);
+    setTimeout(timing, 1000);
+}
+
+// Let's set some time to stop the data collecting - 10 seconds after it starts collecting.
+function timing() {
+    console.log('collecting');
+    state = 'collecting';
+
+    setTimeout(() => {
+        state = 'waiting...';
+        console.log('not collecting');
+    }, 10000);
 }
 
 function setup() {
@@ -48,22 +60,24 @@ function gotPose(poses) {
         pose = poses[0].pose;
         skeleton = poses[0].skeleton;
 
+        // The inputs should be collected and fed to the neural net only if a key is pressed. This is how we assure that:
+        if (state == "collecting") {
+            // To flatten the data, we need to put it on a plain array. Using the push() method, we're gonna save the x and y coordinates
+            // to each keypoint in the inputs array, so it'll have 17 positions with 2 informations each: the x and y location.
+            let inputs = [];
+            let target = [targetLabel];
 
-        // To flatten the data, we need to put it on a plain array. Using the push() method, we're gonna save the x and y coordinates
-        // to each keypoint in the inputs array, so it'll have 17 positions with 2 informations each: the x and y location.
-        let inputs = [];
-        let target = [targetLabel];
+            for (var i = 0; i < pose.keypoints.length; i++) {
+                let x = pose.keypoints[i].position.x;
+                let y = pose.keypoints[i].position.y;
 
-        for(var i=0; i<pose.keypoints.length; i++){
-            let x = pose.keypoints[i].position.x;
-            let y = pose.keypoints[i].position.y;
+                inputs.push(x);
+                inputs.push(y);
+            }
 
-            inputs.push(x);
-            inputs.push(y);
+            // After handling the data, we need to add it to our neural network.
+            brain.addData(inputs, target);
         }
-
-        // After handling the data, we need to add it to our neural network.
-        brain.addData(inputs, target);
     }
 }
 
