@@ -12,10 +12,16 @@ let targetLabel;
 // To give us time to take place before the data start being collected, we use the JS function setTimeout() that will execute a
 // function after the time we set - in this case, 1 second. 
 function keyPressed() {
-    targetLabel = key;
-    console.log(targetLabel);
 
-    setTimeout(timing, 1000);
+    if (key == 's') {
+        // To save the data as a json file
+        brain.saveData();
+    } else {
+        targetLabel = key;
+        console.log(targetLabel);
+
+        setTimeout(timing, 1000);
+    }
 }
 
 // Let's set some time to stop the data collecting - 10 seconds after it starts collecting.
@@ -50,7 +56,6 @@ function setup() {
 
     // Storing the neural net
     brain = ml5.neuralNetwork(options);
-
 }
 
 function gotPose(poses) {
