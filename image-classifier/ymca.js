@@ -6,6 +6,17 @@ let skeleton;
 
 let brain;          // neural network;
 
+let targetLabel;
+
+// To give us time to take place before the data start being collected, we use the JS function setTimeout() that will execute a
+// function after the time we set - in this case, 1 second. 
+function keyPressed() {
+    targetLabel = key;
+    console.log(targetLabel);
+
+    setTimeout(() => { console.log('collecting') }, 1000);
+}
+
 function setup() {
     createCanvas(640, 480);
 
@@ -27,7 +38,7 @@ function setup() {
 
     // Storing the neural net
     brain = ml5.neuralNetwork(options);
-    
+
 }
 
 function gotPose(poses) {
@@ -36,6 +47,23 @@ function gotPose(poses) {
     if (poses.length > 0) {
         pose = poses[0].pose;
         skeleton = poses[0].skeleton;
+
+
+        // To flatten the data, we need to put it on a plain array. Using the push() method, we're gonna save the x and y coordinates
+        // to each keypoint in the inputs array, so it'll have 17 positions with 2 informations each: the x and y location.
+        let inputs = [];
+        let target = [targetLabel];
+
+        for(var i=0; i<pose.keypoints.length; i++){
+            let x = pose.keypoints[i].position.x;
+            let y = pose.keypoints[i].position.y;
+
+            inputs.push(x);
+            inputs.push(y);
+        }
+
+        // After handling the data, we need to add it to our neural network.
+        brain.addData(inputs, target);
     }
 }
 
