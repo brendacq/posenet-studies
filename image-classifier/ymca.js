@@ -56,6 +56,20 @@ function setup() {
 
     // Storing the neural net
     brain = ml5.neuralNetwork(options);
+
+    // Loading the data collected to train the model
+    brain.loadData('data/data.json', dataLoaded);
+}
+
+function dataLoaded(){
+    console.log('data loaded');
+    brain.normalizeData();
+    brain.train({epochs: 50}, finishedTraining);
+}
+
+function finishedTraining(){
+    console.log('model trained');
+    brain.save();
 }
 
 function gotPose(poses) {
