@@ -38,7 +38,7 @@ function timing() {
 function setup() {
     createCanvas(640, 480);
 
-    capture = createCapture();
+    capture = createCapture(VIDEO);
     capture.hide();
 
     posenet = ml5.poseNet(capture, () => { console.log('Model loaded') });
@@ -58,17 +58,61 @@ function setup() {
     brain = ml5.neuralNetwork(options);
 
     // Loading the data collected to train the model
-    brain.loadData('data/data.json', dataLoaded);
+    // brain.loadData('data/data.json', dataLoaded);
+
+    //Create an object to store the 3 files from the model
+    const modelInfo = {
+        model: 'model/model.json',
+        metadata: 'model/model_meta.json',
+        weights:'model/model.weights.bin'
+    }
+
+    // Load the model trained:
+    brain.load(modelInfo, modelLoaded);
 }
 
-function dataLoaded(){
+function modelLoaded() {
+    console.log('posenet classification loaded');
+
+    classifyPose();
+}
+
+// If a pose is detected, we classify it. If not, wait 0.4 seconds and try to execute the function again
+function classifyPose() {
+    if (pose) {
+        let inputs = [];
+
+        for (var i = 0; i < pose.keypoints.length; i++) {
+            let x = pose.keypoints[i].x;
+            let y = pose.keypoints[i].y;
+            inputs.push(x);
+            inputs.push(y);
+        }
+
+        brain.classify(inputs, gotResults);
+    } else {
+        setTimeout(classifyPose, 400);
+    }
+}
+
+function gotResults(error, results) {
+    console.log(results);
+    console.log(results[0].label);
+
+    classifyPose();
+}
+
+// Beforing training the data, we need to format it so it'll fit the range from 0 to 1. The normalizeData() method can be used to facilitate the process.
+// After normalizing the data, we can train the model with the train() method.
+function dataLoaded() {
     console.log('data loaded');
     brain.normalizeData();
-    brain.train({epochs: 50}, finishedTraining);
+    brain.train({ epochs: 50 }, finishedTraining);
 }
 
-function finishedTraining(){
+function finishedTraining() {
     console.log('model trained');
+    // After training the model, saves the files.
     brain.save();
 }
 
