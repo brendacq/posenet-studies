@@ -27,8 +27,8 @@ function setup() {
 
     brain = ml5.neuralNetwork(options);
 
-    // Load the collected data to train the model
-    brain.loadData('data/data.json', dataLoaded);
+    // Load the .json file which contains the collected data to train the model
+    brain.loadData('data.json', dataLoaded);
 }
 
 function draw() {
