@@ -8,7 +8,7 @@ This repository stores code from my experiences with the Posenet model, which is
 
 ## What is Posenet and how to use it
 
-There is a set of computer vision technicques that detect human figures in images or videos and estimates where key body joints are; it's called pose estimation. PoseNet is a ml5.js Machine Learning model that is able to estimate real-time human poses directly from the browser using a webcam capture.
+There is a set of computer vision technicques that detect human figures in images or videos and estimates where key body joints are; it's called pose estimation. PoseNet is a Machine Learning model that is able to estimate real-time human poses, by using ml5.js library we can do it directly from the browser using a webcam capture.
 
 You can follow the steps below and try it out on your own computer.
 
@@ -33,7 +33,7 @@ Just so we don't need to install anything on our computer, let's use cdn links t
 </html>
 ```
 
-*We can also use the P5.js [web editor](https://editor.p5js.org/)*
+*We can also use the P5.js [web editor](https://editor.p5js.org/) or install p5.js and ml5.js using our package manager*
 
 ### 2. Pose Estimation
 
@@ -44,7 +44,7 @@ In this step, we're gonna create a sketch to capture the video from the webcam, 
 
 <br>
 
-*This step refers to single-person pose estimation, that is, when there's only person centered in the input image/video. If there are more than one person, the multi-pose estimation algorithm should be used.*
+*This step refers to single-person pose estimation, that is, when there's only person centered in the input image/video. If there are more than one person, the multi-pose estimation algorithm should be used instead.*
 
 ### 3. Pose Classification
 
@@ -54,8 +54,6 @@ For Pose Classification, we need to follow these steps:
 2. Collect data and feed it to the neural network;
 3. Train and save the model;
 4. Classify new poses.
-
-<br>
 
 The pose-classifier directory has 3 files:
 
