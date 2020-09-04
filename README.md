@@ -3,6 +3,7 @@
 This repository stores code from my experiences with the Posenet model, which is used to estimate human poses with the browser in real-time. 
 
  In this repo, you'll find the codes for Pose Estimation and Image Classification. I used P5.js and ML5.js libraries and followed The Coding Train tutorial.
+
 <br>
 
 ## What is Posenet and how to use it
@@ -10,8 +11,6 @@ This repository stores code from my experiences with the Posenet model, which is
 There is a set of computer vision technicques that detect human figures in images or videos and estimates where key body joints are; it's called pose estimation. PoseNet is a ml5.js Machine Learning model that is able to estimate real-time human poses directly from the browser using a webcam capture.
 
 You can follow the steps below and try it out on your own computer.
-
-<br>
 
 ### 1. Setting up
 Just so we don't need to install anything on our computer, let's use cdn links to access p5.js and ml5.js libraries:
@@ -33,7 +32,6 @@ Just so we don't need to install anything on our computer, let's use cdn links t
   </body>
 </html>
 ```
-<br>
 
 *__Don't forget to change YOURSKETCH.js to the name of your sketch__*
 
