@@ -75,6 +75,11 @@ function dataLoaded() {
 
 function finishedTraining() {
     console.log('Model is trained!');
-    // After training the model, save the files.
+    // The training will generate 3 model files:
+    // 1. model.json,
+    // 2. model_meta.json
+    // 3. model.weights.bin.
+
+    // After training the model, save the 3 files.
     brain.save();
 }
