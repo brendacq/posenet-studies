@@ -35,18 +35,21 @@ Just so we don't need to install anything on our computer, let's use cdn links t
 
 *__Don't forget to change YOURSKETCH.js to the name of your sketch__*
 
-<br>
 
 ### 2. Pose Estimation
 
 In this step, we're gonna create a sketch to capture the video from the webcam, load the PoseNet model and use it identify your key body joints and draw lines connecting them - forming a skeleton.
 
 [Here](https://github.com/brendacq/posenet-studies/blob/master/pose-estimation/skeleton.js) you can find the source code for a full body pose estimation.
-<br>
-*This step refers to single-person pose estimation, that is, when there's only person centered in the input image/video. If there's multiple persons, the multi-pose estimation algorithm should be used.*
-
+[Here](https://github.com/brendacq/posenet-studies/blob/master/pose-estimation/clown-nose.js) you can find the source code for drawing a red circle (clown nose) on your face.
 
 <br>
+
+*This step refers to single-person pose estimation, that is, when there's only person centered in the input image/video. If there are more than one person, the multi-pose estimation algorithm should be used.*
+
+<br>
+
+****
 
 ## References:
 * [Real-time Human Pose Estimation in the Browser with TensorFlow.js](https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5);
